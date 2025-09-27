@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Stocky Backend - Stock Rewards System
 
 A comprehensive Golang backend system for managing stock rewards, built with Gin framework and PostgreSQL.
