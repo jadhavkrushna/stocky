@@ -1,0 +1,232 @@
+{
+  "info": {
+    "name": "Stocky API",
+    "description": "API collection for Stocky stock rewards system",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "version": "1.0.0"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8080",
+      "type": "string"
+    },
+    {
+      "key": "user_id",
+      "value": "123e4567-e89b-12d3-a456-426614174000",
+      "type": "string"
+    },
+    {
+      "key": "admin_api_key",
+      "value": "admin-secret-key-123",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health Check",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/health",
+              "host": ["{{base_url}}"],
+              "path": ["health"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Rewards",
+      "item": [
+        {
+          "name": "Create Reward - Onboarding",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"user_id\": \"{{user_id}}\",\n    \"stock_symbol\": \"RELIANCE\",\n    \"quantity\": \"10.5\",\n    \"reward_type\": \"onboarding\",\n    \"metadata\": {\n        \"campaign_id\": \"welcome2024\",\n        \"source\": \"mobile_app\"\n    }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/reward",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "reward"]
+            }
+          }
+        },
+        {
+          "name": "Create Reward - Referral",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"user_id\": \"{{user_id}}\",\n    \"stock_symbol\": \"TCS\",\n    \"quantity\": \"5.0\",\n    \"reward_type\": \"referral\",\n    \"metadata\": {\n        \"referred_user_id\": \"456e7890-e89b-12d3-a456-426614174000\"\n    }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/reward",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "reward"]
+            }
+          }
+        },
+        {
+          "name": "Create Reward - Trading Milestone",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"user_id\": \"{{user_id}}\",\n    \"stock_symbol\": \"INFOSYS\",\n    \"quantity\": \"2.5\",\n    \"reward_type\": \"milestone\",\n    \"metadata\": {\n        \"milestone_type\": \"first_trade\",\n        \"trade_value\": \"50000\"\n    }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/reward",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "reward"]
+            }
+          }
+        },
+        {
+          "name": "Adjust Reward - Refund",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"original_reward_id\": \"{{reward_id}}\",\n    \"adjustment_type\": \"REFUND\",\n    \"quantity_adjustment\": \"-2.5\",\n    \"reason\": \"Partial refund due to user request\",\n    \"approved_by\": \"admin@stocky.com\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/adjust-reward",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "adjust-reward"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Portfolio",
+      "item": [
+        {
+          "name": "Get Today's Stocks",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/today-stocks/{{user_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "today-stocks", "{{user_id}}"]
+            }
+          }
+        },
+        {
+          "name": "Get Historical INR",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/historical-inr/{{user_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "historical-inr", "{{user_id}}"]
+            }
+          }
+        },
+        {
+          "name": "Get User Stats",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/stats/{{user_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "stats", "{{user_id}}"]
+            }
+          }
+        },
+        {
+          "name": "Get User Portfolio",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/portfolio/{{user_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "portfolio", "{{user_id}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin",
+      "item": [
+        {
+          "name": "Set Stock Price - Manual Override",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-Admin-API-Key",
+                "value": "{{admin_api_key}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"stock_symbol\": \"RELIANCE\",\n    \"price_inr\": \"2500.75\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/stock-price",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "stock-price"]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    }
+  ]
+}

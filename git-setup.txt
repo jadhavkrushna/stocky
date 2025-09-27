@@ -1,0 +1,32 @@
+# Git Setup and Push Commands
+
+# Navigate to your project directory
+cd "c:\Users\adminpc\Desktop\Adi Docs\stocky\backend"
+
+# Initialize Git repository
+git init
+
+# Add all files to staging
+git add .
+
+# Create initial commit
+git commit -m "Initial commit: Complete Stocky backend system
+
+- Golang backend with Gin framework and Logrus logging
+- PostgreSQL database with double-entry ledger system
+- Complete REST API with all required endpoints
+- Stock reward system with fractional shares support
+- Hourly stock price updates with fallback mechanisms
+- Comprehensive edge case handling
+- Docker containerization and CI/CD pipeline
+- Complete documentation and Postman collection
+- Production-ready with monitoring and health checks"
+
+# Add remote repository
+git remote add origin https://github.com/jksaavan/stocky.git
+
+# Set default branch to main
+git branch -M main
+
+# Push to GitHub
+git push -u origin main

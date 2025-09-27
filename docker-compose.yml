@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: stocky-postgres
+    environment:
+      POSTGRES_DB: assignment
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - stocky-network
+
+  stocky-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: stocky-backend
+    ports:
+      - "8080:8080"
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: password
+      DB_NAME: assignment
+      DB_SSLMODE: disable
+      PORT: 8080
+      GIN_MODE: release
+      LOG_LEVEL: info
+    depends_on:
+      - postgres
+    networks:
+      - stocky-network
+    restart: unless-stopped
+
+  # Optional: Redis for caching (future enhancement)
+  # redis:
+  #   image: redis:7-alpine
+  #   container_name: stocky-redis
+  #   ports:
+  #     - "6379:6379"
+  #   networks:
+  #     - stocky-network
+
+volumes:
+  postgres_data:
+
+networks:
+  stocky-network:
+    driver: bridge
