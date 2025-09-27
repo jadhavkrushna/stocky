@@ -3,7 +3,6 @@ package services
 import (
 	"database/sql"
 	"testing"
-	"time"
 
 	"stocky-backend/internal/models"
 
@@ -24,8 +23,8 @@ func (m *MockDB) QueryRow(query string, args ...interface{}) *sql.Row {
 }
 
 func (m *MockDB) Exec(query string, args ...interface{}) (sql.Result, error) {
-	args := m.Called(query, args)
-	return nil, args.Error(1)
+	mockArgs := m.Called(query, args)
+	return nil, mockArgs.Error(1)
 }
 
 // MockStockPriceService for testing

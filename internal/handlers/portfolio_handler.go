@@ -5,9 +5,9 @@ import (
 
 	"stocky-backend/internal/models"
 	"stocky-backend/internal/services"
+	"stocky-backend/internal/utils"
 
 	"github.com/gin-gonic/gin"
-	"github.com/google/uuid"
 	"github.com/sirupsen/logrus"
 )
 
@@ -24,7 +24,7 @@ func NewPortfolioHandler(portfolioService *services.PortfolioService, logger *lo
 }
 
 func (h *PortfolioHandler) GetTodayStocks(c *gin.Context) {
-	userID, err := parseUUIDParam(c, "userId")
+	userID, err := utils.ParseUUIDParam(c, "userId")
 	if err != nil {
 		h.logger.WithFields(logrus.Fields{
 			"request_id": c.GetString("request_id"),
@@ -68,7 +68,7 @@ func (h *PortfolioHandler) GetTodayStocks(c *gin.Context) {
 }
 
 func (h *PortfolioHandler) GetHistoricalINR(c *gin.Context) {
-	userID, err := parseUUIDParam(c, "userId")
+	userID, err := utils.ParseUUIDParam(c, "userId")
 	if err != nil {
 		h.logger.WithFields(logrus.Fields{
 			"request_id": c.GetString("request_id"),
@@ -112,7 +112,7 @@ func (h *PortfolioHandler) GetHistoricalINR(c *gin.Context) {
 }
 
 func (h *PortfolioHandler) GetUserStats(c *gin.Context) {
-	userID, err := parseUUIDParam(c, "userId")
+	userID, err := utils.ParseUUIDParam(c, "userId")
 	if err != nil {
 		h.logger.WithFields(logrus.Fields{
 			"request_id": c.GetString("request_id"),
@@ -157,7 +157,7 @@ func (h *PortfolioHandler) GetUserStats(c *gin.Context) {
 }
 
 func (h *PortfolioHandler) GetUserPortfolio(c *gin.Context) {
-	userID, err := parseUUIDParam(c, "userId")
+	userID, err := utils.ParseUUIDParam(c, "userId")
 	if err != nil {
 		h.logger.WithFields(logrus.Fields{
 			"request_id": c.GetString("request_id"),
@@ -199,10 +199,4 @@ func (h *PortfolioHandler) GetUserPortfolio(c *gin.Context) {
 		Success: true,
 		Data:    response,
 	})
-}
-
-// Helper function to parse UUID from URL parameter
-func parseUUIDParam(c *gin.Context, paramName string) (uuid.UUID, error) {
-	paramValue := c.Param(paramName)
-	return uuid.Parse(paramValue)
 }

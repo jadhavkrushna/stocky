@@ -8,7 +8,6 @@ import (
 	"stocky-backend/internal/services"
 
 	"github.com/gin-gonic/gin"
-	"github.com/google/uuid"
 	"github.com/sirupsen/logrus"
 )
 
@@ -236,10 +235,4 @@ func (h *RewardHandler) SetStockPrice(c *gin.Context) {
 		Success: true,
 		Message: "Stock price set successfully",
 	})
-}
-
-// Helper function to parse UUID from URL parameter
-func parseUUIDParam(c *gin.Context, paramName string) (uuid.UUID, error) {
-	paramValue := c.Param(paramName)
-	return uuid.Parse(paramValue)
 }
